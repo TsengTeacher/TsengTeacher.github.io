@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動二選一網頁</title>
+    <style>
+        /* 基礎版面設定：讓內容置中 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* 卡片容器樣式 */
+        .card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        /* 按鈕群組 */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* 按鈕樣式 */
+        button {
+            padding: 12px 28px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-weight: bold;
+        }
+
+        .btn-left {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-left:hover {
+            background-color: #2563eb;
+            transform: scale(1.05);
+        }
+
+        .btn-right {
+            background-color: #ec4899;
+            color: white;
+        }
+
+        .btn-right:hover {
+            background-color: #db2777;
+            transform: scale(1.05);
+        }
+
+        /* 重新開始按鈕 */
+        .btn-restart {
+            background-color: #6b7280;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* 隱藏元素的類別 */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- 階段一：提出問題與選項 -->
+        <div id="question-stage">
+            <h1 id="question-text">當我考試考砸、或是跟朋友吵架心情很爛時，我最希望別人對我做什麼事？</h1>
+            <div class="btn-group">
+                <button class="btn-left" onclick="showResult('A')">希望別人不要一直問、不要取笑我。 🍜</button>
+                <button class="btn-right" onclick="showResult('B')">希望有人分我吃一塊餅乾，陪我坐在樹下就好。 🍔</button>
+            </div>
+        </div>
+
+        <!-- 階段二：顯示結果（預設隱藏） -->
+        <div id="result-stage" class="hidden">
+            <h1 id="result-text">結果會顯示在這裡</h1>
+            <button class="btn-restart" onclick="restart()">再選一次</button>
+        </div>
+    </div>
+
+    <script>
+        // 點選選項後的處理邏輯
+        function showResult(choice) {
+            // 1. 隱藏問題區塊
+            document.getElementById('question-stage').classList.add('hidden');
+            
+            // 2. 顯示結果區塊
+            document.getElementById('result-stage').classList.remove('hidden');
+            
+            // 3. 根據選擇切換不同的結果文字
+            const resultText = document.getElementById('result-text');
+            if (choice === 'A') {
+                resultText.innerHTML = "太棒了！今天就去吃濃郁的博多豚骨拉麵吧！記得加點糖心蛋 😋";
+            } else if (choice === 'B') {
+                resultText.innerHTML = "大口咬下！雙層起司牛肉堡在等著你，別忘了搭配金黃薯條 🍟";
+            }
+        }
+
+        // 重新開始的邏輯
+        function restart() {
+            // 切換顯示狀態，回到初始畫面
+            document.getElementById('result-stage').classList.add('hidden');
+            document.getElementById('question-stage').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
